@@ -1,0 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-header-mobile: url(../imagens/bg-header-mobile-light)
+}
+
+
+header {
+    background-image: var(--bg-header-mobile);
+    background-repeat: no-repeat;
+}
