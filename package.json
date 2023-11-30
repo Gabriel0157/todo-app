@@ -1,4 +1,8 @@
 {
+  "name": "todo-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js localhost 3000"
@@ -15,8 +19,12 @@
   },
   "homepage": "https://github.com/Gabriel0157/todo-app#readme",
   "dependencies": {
-    "index.js": "^0.0.3",
+    "express": "^4.18.2",
+    "express-handlebars": "^7.1.2",
     "mysql2": "^3.6.5",
+    "node": "^21.2.0"
+  },
+  "devDependencies": {
     "nodemon": "^3.0.1"
   }
 }

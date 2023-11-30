@@ -11,37 +11,57 @@ app.set('view engine', 'handlebars')
 
 app.use(express.static('public'))
 
-app.use(express.unlencoded ({
+app.use(express.urlencoded({
     extend: true
 }))
 
 app.use(express.json())
 
-app.post('/criar', (requisicao, resposta) =>{
-    const descricao = require.body.descricao
+app.post('/criar', (requisicao, resposta) => {
+    const descricao = requisicao.body.descricao
     const completa = 0
 
     const sql = `
     INSERT INTO tarefas(descricao, completa)
     VALUES ('${descricao}', '${completa}')`
 
-    conexao.query(sql, (erro) =>{
+    conexao.query(sql, (erro) => {
         if (erro) {
             return console.log(erro)
 
         }
-        
-        resposta.redirect('')
+
+        resposta.redirect('/')
     })
 })
 
-app.get('/', (requisicao, resposta) =>{
+app.get('/', (requisicao, resposta) => {
+    const sql = 'select * from tarefas'
+
+    conexao.query(sql, (erro, dados) => {
+        if (erro) {
+            return console.log(erro)
+        }
+
+        const tarefas = dados.map((dado) => {
+            return {
+                id: dado.id,
+                descricao: dado.descricao,
+                completa: dado.completa === 0 ? false : true
+            }
+        })
+
+        console.log(tarefas)
+    })
+
     resposta.render('home')
+
+
 })
 
-const conexao = mysql.createConnection ({
+const conexao = mysql.createConnection({
     host: "localhost",
-    user:  "root", 
+    user: "root",
     password: "root",
     database: "todoapp",
     port: 3306
@@ -51,10 +71,10 @@ conexao.connect((erro) => {
     if (erro) {
         return console.log(erro)
     }
-    
-    console.log ("estou conectado ao mysql.")
 
-    app.addListener(3000, () => {
+    console.log("estou conectado ao mysql.")
+
+    app.listen(3000, () => {
         console.log("servidor rodando na porta 3000!")
     })
 })
