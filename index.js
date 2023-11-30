@@ -54,7 +54,7 @@ app.get('/', (requisicao, resposta) => {
         console.log(tarefas)
     })
 
-    resposta.render('home')
+    resposta.render('home', { tarefas })
 
 
 })
