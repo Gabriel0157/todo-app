@@ -17,6 +17,7 @@
     --box-shadow: 0px 35px 50px -15px rgba(194, 195, 214, 0.50);
     --border-color: #e3e4f1;
     --text-color: #494c6b;
+    --todo
     --info-text-color: #9495a5;
     --info-button-hover: #494c6b;
     --info-button-active: #3a7cfd;
@@ -126,8 +127,8 @@ header form button:hover {
     padding: 1rem 1.25rem;
 }
 
-.tarefas .tarefa+.tarefa {
-    border: 1px solid var(--border-color);
+.completa label {
+    text-decoration: line-through   ;
 }
 
 .tarefa form {

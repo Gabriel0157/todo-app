@@ -8,12 +8,12 @@ function alterarTema() {
 
         if (tema === "light") {
             novoTema = "dark"
-            button.classList = `<img src="/imgagens/sun-icon.png" alt="icone de sol"`
+            button.classList = `<img src="/public/imgagens/sun-icon.png" alt="icone de sol"`
             body.classList.remove("light")
             body.classList.add("dark")
         } else {
             novoTema = "light"
-            button.classList = `<img src="/imgagens/moon-icon.png" alt="icone de lua"`
+            button.classList = `<img src="/public/imgagens/moon-icon.png" alt="icone de lua"`
             body.classList.remove("dark")
             body.classList.add("light")
         }
