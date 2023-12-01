@@ -5,7 +5,7 @@
             <form action="">
                 {{#if this.completa}}
                 <div class="completa">
-                    <input type="checkbox" id="tarefa-1{{this.id}}" checked>
+                    <input type="checkbox" id="tarefa-1{{this.id}}" checked onchange="desconpletarTarefa({{this.id}})">
                     <label for="tarefa-1{{this.id}}">{{this.id}}</label>
                 </div>
                 {{else}}

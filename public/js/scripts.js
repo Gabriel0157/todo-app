@@ -3,6 +3,18 @@ function alterarTema() {
     const body = document.querySelector("body")
     const button = document.querySelector(".tema-button")
 
+    function descompletarTarefa(id) {
+        fetch("http://localhost3000/descompletar", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.string({ id })
+        })
+        
+        window.location.reload()
+    }
+
     if (tema) {
         let novoTema
 
@@ -35,7 +47,7 @@ function verificarTema() {
         if (tema === "dark") {
             body.classList.add("dark")
             button.classList = `<img src="/imgagens/sun-icon.png" alt="icone de sol"`
-            
+
         } else {
             body.classList.add("light")
             button.classList = `<img src="/imgagens/moon-icon.png" alt="icone de lua"`
