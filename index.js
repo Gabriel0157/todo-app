@@ -17,6 +17,33 @@ app.use(express.urlencoded({
 
 app.use(express.json())
 
+app.get('/limparTarefas', (requisicao, resposta) => {
+    const sql = 'DELETE FROM tarefas'
+
+    conexao.query(sql, (erro) => {
+        if (erro) {
+            return console.log(erro)
+        }
+        resposta.redirect('/')
+    })
+})
+
+app.get('/excluir', (requisicao, resposta) => {
+    const id = requisicao.body.id
+
+    const sql = `
+    DELETE FROM tarefas
+    WHERE id = ${id}
+    `
+
+    conexao.query(sql, (erro,dados) =>{
+        if (erro) {
+            return console.log(erro)
+        }
+        resposta.redirect('/')
+    })
+})
+
 app.post('/completar', (requisicao, resposta) => {
     const id = requisicao.body.id
 
@@ -72,21 +99,6 @@ app.post('/criar', (requisicao, resposta) => {
     })
 })
 
-app.get('/excluir', (requisicao, resposta) => {
-    const id = requisicao.body.id
-
-    const sql = `
-    DELETE FROM tarefas
-    WHERE id = ${id}
-    `
-
-    conexao.query(sql, (erro,dados) =>{
-        if (erro) {
-            return console.log(erro)
-        }
-        resposta.redirect('/')
-    })
-})
 
 app.get('/completas', (requisicao, resposta) => {
     const sql = `

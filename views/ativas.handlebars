@@ -1,14 +1,16 @@
+
+{{#if tarefas}}
 <main>
     <section class="tarefas">
         {{#each tarefas}}
         <div class="tarefa">
             <form action="">
-                <div class="completa">
+                <div class="ativas">
                     <input type="checkbox" id="tarefa-1{{this.id}}" onclick="completarTarefas({{this.id}})">
                     <label for="tarefa-1{{this.id}}">{{this.id}}</label>
                 </div>
 
-                <button>
+                <button onclick="excluirTarefa({{this.id}})">
                     <img src="/public/imagens/x-icon.png" alt="icone de x para sair">
                 </button>
             </form>
@@ -22,7 +24,7 @@
                 <a href="/ativas" class="active">Ativas</a>
                 <a href="/completas">Completas</a>
             </div>
-            <a href="">Limpar tarefas</a>
+            <a href="/limparTarefas">Limpar tarefas</a>
         </div>
 
     </section>
@@ -33,3 +35,4 @@
         <a href="/completas">Completas</a>
     </section>
 </main>
+{{/if}}
