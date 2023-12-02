@@ -28,9 +28,7 @@ app.post('/completar', (requisicao, resposta) => {
     conexao.query(sql, (erro) => {
         if (erro) {
             return console.log(erro)
-
         }
-
         resposta.redirect('/')
     })
 
@@ -74,6 +72,31 @@ app.post('/criar', (requisicao, resposta) => {
     })
 })
 
+app.get('/completas', (requisicao, resposta) => {
+    const sql = `
+    SELECT * FROM tarefas
+    WHERE completa = 1
+    `
+
+    conexao.query(sql, (erro,dados) =>{
+        if (erro) {
+            return console.log(erro)
+        }
+
+        const tarefas = dados.map((dados) => {
+            return {
+                id: dado.id,
+                descricao: dado.descricao,
+                completa: false
+            }
+        })
+        const quantidadeTarefas = tarefas.length
+
+        resposta.render('completas', { tarefas, quantidadeTarefas })
+    })
+})
+
+
 app.get('/ativas', (requisicao, resposta) => {
     const sql = `
     SELECT * FROM tarefas
@@ -92,8 +115,12 @@ app.get('/ativas', (requisicao, resposta) => {
                 completa: false
             }
         })
+        const quantidadeTarefas = tarefas.length
+
+        resposta.render('ativas', { tarefas, quantidadeTarefas })
     })
 })
+
 
 app.get('/', (requisicao, resposta) => {
     const sql = 'select * from tarefas'
