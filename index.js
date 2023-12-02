@@ -44,7 +44,6 @@ app.post('/descompletar', (requisicao, resposta) => {
     UPDATE tarefas.
     SET completa = '1'
     WHERE id = ${id}`
-        `
 
     conexao.query(sql, (erro) => {
         if (erro) {
@@ -57,74 +56,66 @@ app.post('/descompletar', (requisicao, resposta) => {
     window.location.reload()
 })
 
-    app.post('/criar', (requisicao, resposta) => {
-        const descricao = requisicao.body.descricao
-        const completa = 0
+app.post('/criar', (requisicao, resposta) => {
+    const descricao = requisicao.body.descricao
+    const completa = 0
 
-        const sql = `
+    const sql = `
         INSERT INTO tarefas(descricao, completa),
         VALUES('${descricao}', '${completa}')`
 
-        conexao.query(sql, (erro) => {
-            if (erro) {
-                return console.log(erro)
+    conexao.query(sql, (erro) => {
+        if (erro) {
+            return console.log(erro)
 
-            }
+        }
 
-            resposta.redirect('/')
-        })
+        resposta.redirect('/')
     })
+})
 
-    app.get('/', (requisicao, resposta) => {
-        const sql = 'select * from tarefas'
+app.get('/', (requisicao, resposta) => {
+    const sql = 'select * from tarefas'
 
-        conexao.query(sql, (erro, dados) => {
-            if (erro) {
-                return console.log(erro)
-            }
-
-            const tarefas = dados.map((dado) => {
-                return {
-                    id: dado.id,
-                    descricao: dado.descricao,
-                    completa: dado.completa === 0 ? false : true
-                }
-            })
-
-            const tarefasAtivas = tarefas.filter((tarefa) => {
-                return tarefa.completa === false && tarefa
-            })
-
-            const quantidadeTarefasAtivas = tarefasAtivas.length
-
-            resposta.render('home', { tarefa, quantidadeTarefasAtivas})
-
-            
-
-                    
-        })
-
-        resposta.render('home', { tarefas })
-
-
-    })
-
-    const conexao = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "root",
-        database: "todoapp",
-        port: 3306
-    })
-
-    conexao.connect((erro) => {
+    conexao.query(sql, (erro, dados) => {
         if (erro) {
             return console.log(erro)
         }
 
-        console.log("estou conectado ao mysql.")
-
-        app.listen(3000, () => {
-            console.log("servidor rodando na porta 3000!")
+        const tarefas = dados.map((dado) => {
+            return {
+                id: dado.id,
+                descricao: dado.descricao,
+                completa: dado.completa === 0 ? false : true
+            }
         })
-    
+
+        const tarefasAtivas = tarefas.filter((tarefa) => {
+            return tarefa.completa === false && tarefa
+        })
+
+        const quantidadeTarefasAtivas = tarefasAtivas.length
+
+        resposta.render('home', { tarefa, quantidadeTarefasAtivas })
+    })
+})
+
+const conexao = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "todoapp",
+    port: 3306
+})
+
+conexao.connect((erro) => {
+    if (erro) {
+        return console.log(erro)
+    }
+
+    console.log("estou conectado ao mysql.")
+
+    app.listen(3000, () => {
+        console.log("servidor rodando na porta 3000!")
+    })
+})  
