@@ -72,10 +72,27 @@ app.post('/criar', (requisicao, resposta) => {
     })
 })
 
+app.get('/excluir', (requisicao, resposta) => {
+    const id = requisicao.body.id
+
+    const sql = `
+    DELETE FROM tarefas
+    WHERE id = ${id}
+    `
+
+    conexao.query(sql, (erro,dados) =>{
+        if (erro) {
+            return console.log(erro)
+        }
+        resposta.redirect('/')
+    })
+})
+
 app.get('/completas', (requisicao, resposta) => {
     const sql = `
     SELECT * FROM tarefas
-    WHERE completa = 1
+    SET completa = '1'
+    WHERE id = ${id}   
     `
 
     conexao.query(sql, (erro,dados) =>{

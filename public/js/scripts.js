@@ -3,17 +3,31 @@ function alterarTema() {
     const body = document.querySelector("body")
     const button = document.querySelector(".tema-button")
 
-    function descompletarTarefa(id) {
-        fetch("http://localhost3000/descompletar", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.string({ id })
-        })
-        
-        window.location.reload()
-    }
+function descompletarTarefa(id) {
+    fetch("http://localhost3000/descompletar", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.string({ id })
+    })
+    window.location.reload()
+}
+
+function excluirTarefa(id) {
+    fetch("http://localhost3000/excluir", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.string({ id })
+    })
+}
+
+function alterarTema(){
+    const tema = localStorage.getItem("tema")
+    const body = document.querySelector("body")
+    const button = document.querySelector(".tema-button")
 
     if (tema) {
         let novoTema
@@ -37,6 +51,9 @@ function alterarTema() {
     localStorage.setItem("tema", "dark")
     body.classList.add("dark")
 }
+
+
+
 
 function verificarTema() {
     const tema = localStorage.getItem("tema")
